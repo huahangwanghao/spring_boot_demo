@@ -1,0 +1,11 @@
+server:
+  port: 8082
+
+name1: 生产环境
+age1: 18
+content1: "name:${name1},age:${age1}"
+
+
+student:
+  name: 生产环境
+  age: 18
