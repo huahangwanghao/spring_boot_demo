@@ -1,4 +1,4 @@
-package com.wanghao.spring.boot.bean;/**
+package com.wanghao.spring.boot.properties;/**
  * Created by Administrator on 2017/4/25.
  */
 

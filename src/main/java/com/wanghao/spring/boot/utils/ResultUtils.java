@@ -23,6 +23,20 @@ public class ResultUtils<T> {
         return resultBean;
     }
 
+
+
+    /**
+     * 成功的返回类
+     * @return
+     */
+    public static ResultBean success (Object object){
+        ResultBean resultBean=new ResultBean();
+        resultBean.setCode(0);
+        resultBean.setMsg("成功");
+        resultBean.setData(object);
+        return resultBean;
+    }
+    
     /**
      * 返回错误提示
      * @param code

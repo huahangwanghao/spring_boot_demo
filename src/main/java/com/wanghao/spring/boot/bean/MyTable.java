@@ -5,6 +5,7 @@ package com.wanghao.spring.boot.bean;/**
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Min;
 
 /**
  * 员工的表
@@ -20,6 +21,8 @@ public class MyTable {
     @GeneratedValue
     private Integer empId;
     private String name;
+    //不满18岁不能入内
+    @Min(value = 18,message = "未成年不能登录")
     private Integer age;
 
 
