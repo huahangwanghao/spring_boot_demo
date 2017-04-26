@@ -3,6 +3,7 @@ package com.wanghao.spring.boot.utils;/**
  */
 
 import com.wanghao.spring.boot.bean.ResultBean;
+import com.wanghao.spring.boot.enumtype.EnumType;
 
 /**
  * 返回类的工具类
@@ -39,14 +40,12 @@ public class ResultUtils<T> {
     
     /**
      * 返回错误提示
-     * @param code
-     * @param msg
      * @return
      */
-    public static ResultBean error(Integer code,String msg){
+    public static ResultBean error(EnumType enumType){
         ResultBean resultBean=new ResultBean();
-        resultBean.setCode(code);
-        resultBean.setMsg(msg);
+        resultBean.setCode(enumType.getCode());
+        resultBean.setMsg(enumType.getMsg());
         return resultBean;
     }
     

@@ -4,6 +4,7 @@ package com.wanghao.spring.boot.controller;/**
 
 import com.wanghao.spring.boot.bean.MyTable;
 import com.wanghao.spring.boot.bean.ResultBean;
+import com.wanghao.spring.boot.enumtype.EnumType;
 import com.wanghao.spring.boot.properties.Student;
 import com.wanghao.spring.boot.dao.MyTableDao;
 import com.wanghao.spring.boot.utils.ResultUtils;
@@ -71,7 +72,7 @@ public class TestController {
             //如果有错误信息,进行把信息打印
             String errorMsg=bindingResult.getFieldError().getDefaultMessage();
             logger.error("验证信息错误 {}",errorMsg);
-            return ResultUtils.error(1,errorMsg);
+            return ResultUtils.error(EnumType.AGEERROR);
         }
         myTable.setName(myTable.getName());
         myTable.setAge(myTable.getAge());
