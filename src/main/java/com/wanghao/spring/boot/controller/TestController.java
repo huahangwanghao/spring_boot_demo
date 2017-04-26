@@ -6,6 +6,7 @@ import com.wanghao.spring.boot.bean.MyTable;
 import com.wanghao.spring.boot.bean.ResultBean;
 import com.wanghao.spring.boot.dao.MyTableDao;
 import com.wanghao.spring.boot.enumtype.EnumType;
+import com.wanghao.spring.boot.exception.MyException;
 import com.wanghao.spring.boot.properties.Student;
 import com.wanghao.spring.boot.service.TestService;
 import com.wanghao.spring.boot.utils.ResultUtils;
@@ -49,9 +50,9 @@ public class TestController {
 
 
 
-    @PostMapping(value = "/hello")
-    public String b(){
-        return content;
+    @PostMapping(value = "/exception")
+    public String b() throws  Exception{
+        throw new MyException(123,"this is test Exception");
     }
 
     
