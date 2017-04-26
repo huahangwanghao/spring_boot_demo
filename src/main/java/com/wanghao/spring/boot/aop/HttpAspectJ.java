@@ -28,7 +28,7 @@ public class HttpAspectJ {
     
     protected  static Logger logger= LoggerFactory.getLogger(HttpAspectJ.class);
     
-    @Pointcut("execution(public * com.wanghao.spring.boot..*(..))")
+    @Pointcut("execution(public * com.wanghao.spring.boot.service..*(..))")
     public void log(){}
     
     

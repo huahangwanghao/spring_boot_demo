@@ -4,9 +4,10 @@ package com.wanghao.spring.boot.controller;/**
 
 import com.wanghao.spring.boot.bean.MyTable;
 import com.wanghao.spring.boot.bean.ResultBean;
+import com.wanghao.spring.boot.dao.MyTableDao;
 import com.wanghao.spring.boot.enumtype.EnumType;
 import com.wanghao.spring.boot.properties.Student;
-import com.wanghao.spring.boot.dao.MyTableDao;
+import com.wanghao.spring.boot.service.TestService;
 import com.wanghao.spring.boot.utils.ResultUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.List;
 
 /**
  * 控制器
@@ -39,7 +39,8 @@ public class TestController {
    
     @Autowired
     private Student student;
-    
+    @Autowired
+    private TestService testService;
     
     @GetMapping(value = "/hello")
     public String sayHello(){
@@ -74,12 +75,17 @@ public class TestController {
             logger.error("验证信息错误 {}",errorMsg);
             return ResultUtils.error(EnumType.AGEERROR);
         }
-        myTable.setName(myTable.getName());
-        myTable.setAge(myTable.getAge());
-         MyTable myTable1=myTableDao.save(myTable);
-        return ResultUtils.success(myTable1);
+        return testService.insertData(myTable);
     }
 
+    
+    @GetMapping("/getAll")
+    public ResultBean getAllData(){
+        return testService.findAll();
+    }
+    
+    
+    
 
     @PostMapping("/insert2")
     public String insert2(@RequestBody MyTable myTable){
@@ -104,15 +110,6 @@ public class TestController {
          return "ok";
     }
 
-
-    /**
-     * 得到所有对象
-     * @return
-     */
-    @GetMapping("getAll")
-    public List<MyTable> getAll(){
-        return myTableDao.findAll();
-    }
 
     /**
      * 得到一个对象
