@@ -39,19 +39,19 @@ public class HttpAspectJ {
         HttpServletRequest request=requestAttributes.getRequest();
         //url
         StringBuffer url=request.getRequestURL();
-        logger.info("url={}",url);
+        logger.info("   url={}",url);
         //method  get/post
         String method=request.getMethod();
-        logger.info("method={}",method);
+        logger.info("   method={}",method);
         //ip
         String ip=request.getRemoteAddr();
-        logger.info("ip={}",ip);
+        logger.info("   ip={}",ip);
         //访问的类.方法名
         String className=joinPoint.getSignature().getDeclaringTypeName();
         String classMethod=joinPoint.getSignature().getName();
-        logger.info("调用类的方法{}",className+"."+classMethod);
+        logger.info("   调用类的方法{}",className+"."+classMethod);
         //参数
-        logger.info("获取到的参数={}",joinPoint.getArgs());
+        logger.info("   获取到的参数={}",joinPoint.getArgs());
     }
 
     @After("log()")
@@ -61,7 +61,7 @@ public class HttpAspectJ {
     
     @AfterReturning(returning = "object",pointcut = "log()")
     public void afterReturn(Object object){
-        logger.info("返回的内容={}",object);
+        logger.info("   返回的内容={}",object);
     }
 
 }
