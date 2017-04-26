@@ -28,9 +28,10 @@ public class HttpAspectJ {
     
     protected  static Logger logger= LoggerFactory.getLogger(HttpAspectJ.class);
     
-    @Pointcut("execution(public * com.wanghao.spring.boot.service..*(..))")
+    @Pointcut("execution(public * com.wanghao.spring.boot.controller..*(..))")
     public void log(){}
-    
+    @Pointcut("execution(public * com.wanghao.spring.boot.service..*(..))")
+    public void service(){}
     
     @Before("log()")
     public void doBefore(JoinPoint joinPoint){
@@ -59,7 +60,7 @@ public class HttpAspectJ {
       //  logger.info("this is after");
     }
     
-    @AfterReturning(returning = "object",pointcut = "log()")
+    @AfterReturning(returning = "object",pointcut = "service()")
     public void afterReturn(Object object){
         logger.info("   返回的内容={}",object);
     }

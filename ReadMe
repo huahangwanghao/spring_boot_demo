@@ -12,6 +12,12 @@
 8.  使用了Util类进行重复代码的处理机制
 9.  使用了枚举类来进行某些信息异常的处理
 10. 使用了一种hibernate的方法,继承了某个类.然后使用不写sql就可以啦.
+11. 使用了Controller中的占位符进行使用
+     请求的url:/hello/12
+     @GetMapping(value = "/hello/{a}")
+     @PathVariable("a") String b
+     logger.info(b)---->12
+12. 使用了yml中的对象的方式给配置文件赋值
 
 
 
