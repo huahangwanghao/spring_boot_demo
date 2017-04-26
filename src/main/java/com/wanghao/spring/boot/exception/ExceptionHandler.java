@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 控制层的异常处理类,
+ * ControllerAdvice
  * 这个类中对于所有controller中的异常都可以进行拦截,然后进行处理
  *
  * @author WangH
