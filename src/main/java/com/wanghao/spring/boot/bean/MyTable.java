@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 /**
  * 员工的表
@@ -20,6 +21,7 @@ public class MyTable {
     @Id
     @GeneratedValue
     private Integer empId;
+    @NotNull(message = "名字不能为空")
     private String name;
     //不满18岁不能入内
     @Min(value = 18,message = "未成年不能登录")

@@ -11,4 +11,6 @@ public interface TestService {
     ResultBean findAll();
 
     ResultBean insertData(MyTable myTable);
+
+    ResultBean deleteOneById(Integer id);
 }

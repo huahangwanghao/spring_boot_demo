@@ -42,4 +42,10 @@ public class TestServiceImpl implements TestService {
         myTable= myTableDao.save(myTable);
         return ResultUtils.success(myTable);
     }
+
+    @Override
+    public ResultBean deleteOneById(Integer id) {
+        myTableDao.delete(id);
+        return ResultUtils.success(0);
+    }
 }

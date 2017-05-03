@@ -2,11 +2,12 @@ spring:
   profiles:
     active: sit
 
+
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: wanghao
-    url: jdbc:mysql://101.200.167.132:3306/wh?useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://101.200.167.132:3306/wanghao?useUnicode=true&characterEncoding=utf-8
   jpa:
     hibernate:
       ddl-auto: update

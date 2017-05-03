@@ -131,8 +131,8 @@ public class TestController {
      * @return
      */
     @GetMapping("deleteOneById")
-    public void deleteOneById(@RequestParam("id") Integer id){
-         myTableDao.delete(id);
+    public ResultBean deleteOneById(@RequestParam("id") Integer id){
+         return testService.deleteOneById(id);
     }
 
     /**
