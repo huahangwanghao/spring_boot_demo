@@ -1,6 +1,6 @@
 server:
   port: 8082
-  context-path: /test
+  context-path: /
 
 name1: 测试环境
 age1: 18
