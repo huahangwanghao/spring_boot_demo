@@ -27,6 +27,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResultBean addOneLevel(OneLevel oneLevel) {
         oneLevelDao.save(oneLevel);
-        return ResultUtils.success();
+        return ResultUtils.success("新增成功");
     }
 }

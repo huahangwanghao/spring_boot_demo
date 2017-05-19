@@ -92,7 +92,7 @@
 								      <input name="name" type="text" id="doc-vld-name-2" minlength="3" placeholder="输入用户名（至少 3 个字符）" required/>
 								    </div>
 								
-								    <button class="am-btn am-btn-secondary" type="submit" onclick="addOneLevel();">提交</button>
+								    <button class="am-btn am-btn-secondary" type="button" onclick="addOneLevel();">提交</button>
 								  </fieldset>
 								</form>
 								
@@ -123,7 +123,32 @@
 		<script type="text/javascript">
 			
 			function addOneLevel(){
-                $("#oneLevelForm").submit();
+               // $("#oneLevelForm").submit();
+
+
+
+                $.ajax({
+                    cache: true,
+                    type: "GET",
+                    url:"/addOneLevel.do",
+                    data:$('#oneLevelForm').serialize(),// 你的formid
+                    async: false,
+                    error: function(request) {
+                        alert("Connection error");
+                    },
+                    success: function(data) {
+                        if(data.code==0){
+                            alert("新增成功");
+						}
+						else{
+                            alert("新增失败");
+                            
+                            
+						}
+                    }
+                });
+                
+                
 			}
 			
 		</script>
