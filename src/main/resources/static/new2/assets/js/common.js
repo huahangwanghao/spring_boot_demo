@@ -32,6 +32,8 @@ $(function () {
         +"<ul class=\"am-list am-collapse admin-sidebar-sub am-in\" id=\"collapse-nav1\">"
         +"<li><a href=\"table_basic.html\" class=\"am-cf\"> 基本表格</span></a></li>"
         +"<li><a href=\"table_complete.html\">完整表格</a></li>"
+        +"<li><a href=\"oneLevelTable.html\">一级商品查询</a></li>"
+    
         +"</ul>"
         +"</li>"
         +"<li class=\"admin-parent\">"
@@ -47,7 +49,7 @@ $(function () {
         +"<ul class=\"am-list am-collapse admin-sidebar-sub am-in\" id=\"collapse-nav5\">"
         +"<li><a href=\"form_basic.html\" class=\"am-cf\"> 基本表单</a></li>"
         +"<li><a href=\"form_validate.html\">购买信息录入</a></li>"
-        +"<li><a href=\"addOneLevel.html\">新增一级商品</a></li>"    
+        +"<li><a href=\"oneLevelAdd.html\">新增一级商品</a></li>"    
         +"</ul>"
         +"</li>"
         +"</ul>"

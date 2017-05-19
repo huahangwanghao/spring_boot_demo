@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 /**
  * 用户的实现类
  *
@@ -26,6 +28,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResultBean addOneLevel(OneLevel oneLevel) {
+        oneLevel.setCrtDate(new Date());
         oneLevelDao.save(oneLevel);
         return ResultUtils.success("新增成功");
     }

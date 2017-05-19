@@ -5,6 +5,7 @@ package com.wanghao.spring.boot.bean;/**
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.Date;
 
 /**
  * 以及品类
@@ -19,6 +20,8 @@ public class OneLevel {
     private Integer oneId;
     
     private String name;
+    
+    private Date crtDate;
 
     public Integer getOneId() {
         return oneId;
@@ -34,6 +37,14 @@ public class OneLevel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Date getCrtDate() {
+        return crtDate;
+    }
+
+    public void setCrtDate(Date crtDate) {
+        this.crtDate = crtDate;
     }
 
     @Override
