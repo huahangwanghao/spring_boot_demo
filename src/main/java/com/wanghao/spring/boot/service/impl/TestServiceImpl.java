@@ -8,7 +8,6 @@ import com.wanghao.spring.boot.dao.MyTableDao;
 import com.wanghao.spring.boot.enumtype.EnumType;
 import com.wanghao.spring.boot.service.TestService;
 import com.wanghao.spring.boot.utils.ResultUtils;
-import org.apache.commons.lang.enums.EnumUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
