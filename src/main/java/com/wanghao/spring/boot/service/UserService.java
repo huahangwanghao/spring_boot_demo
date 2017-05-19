@@ -10,6 +10,7 @@ public interface UserService {
     
     
     ResultBean addOneLevel(OneLevel oneLevel);
-    
-    
+
+
+    ResultBean getAllOneLevel();
 }

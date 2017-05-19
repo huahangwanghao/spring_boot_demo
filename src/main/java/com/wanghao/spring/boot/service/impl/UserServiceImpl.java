@@ -32,4 +32,13 @@ public class UserServiceImpl implements UserService {
         oneLevelDao.save(oneLevel);
         return ResultUtils.success("新增成功");
     }
+
+    @Override
+    public ResultBean getAllOneLevel() {
+        
+        return ResultUtils.success(oneLevelDao.findAll());
+    }
+
+
+    
 }

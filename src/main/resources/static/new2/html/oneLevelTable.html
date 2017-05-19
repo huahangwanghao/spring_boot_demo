@@ -146,24 +146,49 @@
 		<script type="text/javascript">
 
             $(function () {
-                var content="";
-                for (var i=0;i<10;i++){
-                    content+=' <tr>'
-                        +'<td><input type="checkbox" /></td>'
-                        +'   <td>1</td>'
-                        +' <td><a href="#">商品名称</a></td>'
-                        +'<td class="am-hide-sm-only">2014年9月4日 7:28:47</td>'
-                        +'<td>'
-                        +'<div class="am-btn-toolbar">'
-                        +'<div class="am-btn-group am-btn-group-xs">'
-                        +'<button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>'
-                        +'<button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>'
-                        +'</div></div></td></tr>'   ;
-                }
-              
-                $("#myTable").html(content);
 
-                $('#datetimepicker').datetimepicker();
+                $.ajax({
+                    cache: true,
+                    type: "GET",
+                    url:"/getAllOneLevel",
+                    async: false,
+                    error: function(request) {
+                        alert("Connection error");
+                    },
+                    success: function(data) {
+                        if(data.code==0){
+                            alert(data.data);
+                            var content="";
+                            for (var i=0;i<10;i++){
+                                content+=' <tr>'
+                                    +'<td><input type="checkbox" /></td>'
+                                    +'   <td>1</td>'
+                                    +' <td><a href="#">商品名称</a></td>'
+                                    +'<td class="am-hide-sm-only">2014年9月4日 7:28:47</td>'
+                                    +'<td>'
+                                    +'<div class="am-btn-toolbar">'
+                                    +'<div class="am-btn-group am-btn-group-xs">'
+                                    +'<button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>'
+                                    +'<button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>'
+                                    +'</div></div></td></tr>'   ;
+                            }
+
+                            $("#myTable").html(content);
+                        }
+                        else{
+                            alert("新增失败");
+
+
+                        }
+                    }
+                });
+                
+                
+                
+                
+                
+               
+
             });
         </script>
 	</body>

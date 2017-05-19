@@ -32,4 +32,9 @@ public class UserController {
         return userServicel.addOneLevel(oneLevel);
     }
 
+    @GetMapping(value = "/getAllOneLevel")
+    public ResultBean getAllOneLevel(){
+        return userServicel.getAllOneLevel();
+    }
+
 }
