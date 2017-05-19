@@ -12,7 +12,8 @@
 		<link rel="stylesheet" href="../assets/css/admin.css" />
 		<link rel="stylesheet" href="../assets/css/page/typography.css" />
 		<link rel="stylesheet" href="../assets/css/page/form.css" />
-       
+		<link href="../assets/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+
 	</head>
     
 	<body>
@@ -42,75 +43,11 @@
 		<!-- end page -->
 		
 		
-		<div class="admin">
-			<!--<div class="am-g">-->
-		<!-- ========== Left Sidebar Start ========== -->
-		<!--<div class="left side-menu am-hide-sm-only am-u-md-1 am-padding-0">
-			<div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 548px;">
-				<div class="sidebar-inner slimscrollleft" style="overflow: hidden; width: auto; height: 548px;">-->
-                  <!-- sidebar start -->
-				  <div class="admin-sidebar am-offcanvas  am-padding-0" id="admin-offcanvas">
-				    <div class="am-offcanvas-bar admin-offcanvas-bar">
-				    	<!-- User -->
-						<div class="user-box am-hide-sm-only">
-	                        <div class="user-img">
-	                            <img src="../assets/img/avatar-1.jpg" alt="user-img" title="Hello World" class="img-circle img-thumbnail img-responsive">
-	                            <div class="user-status offline"><i class="am-icon-dot-circle-o" aria-hidden="true"></i></div>
-	                        </div>
-	                        <h5><a href="#">Hello World</a> </h5>
-	                        <ul class="list-inline">
-	                            <li>
-	                                <a href="#">
-	                                    <i class="fa fa-cog" aria-hidden="true"></i>
-	                                </a>
-	                            </li>
-	
-	                            <li>
-	                                <a href="#" class="text-custom">
-	                                    <i class="fa fa-cog" aria-hidden="true"></i>
-	                                </a>
-	                            </li>
-	                        </ul>
-	                    </div>
-	                    <!-- End User -->
-	            
-						 <ul class="am-list admin-sidebar-list">
-						    <li><a href="../index.html"><span class="am-icon-home"></span> 首页</a></li>
-						    <li class="admin-parent">
-						      <a class="am-cf" data-am-collapse="{target: '#collapse-nav1'}"><span class="am-icon-table"></span> 表格 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
-						      <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav1">
-						        <li><a href="table_basic.html" class="am-cf"> 基本表格</span></a></li>
-						        <li><a href="table_complete.html">完整表格</a></li>
-						      </ul>
-						    </li>
-						    <li class="admin-parent">
-						      <a class="am-cf" data-am-collapse="{target: '#collapse-nav2'}"><i class="am-icon-line-chart" aria-hidden="true"></i> 统计图表 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
-						      <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav2">
-						        <li><a href="chart_line.html" class="am-cf"> 折线图</span></a></li>
-						        <li><a href="chart_columnar.html" class="am-cf"> 柱状图</span></a></li>
-						        <li><a href="chart_pie.html" class="am-cf"> 饼状图</span></a></li>
-						      </ul>
-						    </li>
-						    <li class="admin-parent">
-						      <a class="am-cf" data-am-collapse="{target: '#collapse-nav5'}"><span class="am-icon-file"></span> 表单 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
-						      <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav5">
-						        <li><a href="form_basic.html" class="am-cf"> 基本表单</a></li>
-						        <li><a href="form_validate.html">购买信息录入</a></li>   
-						      </ul>
-						    </li>
-						  </ul>
-				</div>
-				  </div>
-				  <!-- sidebar end -->
-    
-				<!--</div>
+		<div class="admin" id="leftadmin">
+			<div class="admin-sidebar am-offcanvas  am-padding-0" id="admin-offcanvas">
+				
 			</div>
-		</div>-->
-		<!-- ========== Left Sidebar end ========== -->
-		
-		
-		
-	<!--	<div class="am-g">-->
+			
 		<!-- ============================================================== -->
 		<!-- Start right Content here -->
 		<div class="content-page">
@@ -127,8 +64,13 @@
 				              <button type="button" class="am-btn am-btn-default"><span class="am-icon-trash-o"></span> 删除</button>
 				            </div>
 				          </div>
-				        </div>	
-				        
+				        </div>
+						<div class="am-u-sm-12 am-u-md-3">
+							<div class="input-append date" id="datetimepicker" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+								<input size="16" type="text" value="12-02-2012" readonly>
+								<span class="add-on"><i class="icon-th"></i></span>
+							</div>
+						</div>
 						<div class="am-u-sm-12 am-u-md-3">
 				          <div class="am-input-group am-input-group-sm">
 				            <input type="text" class="am-form-field">
@@ -199,8 +141,9 @@
 		<script type="text/javascript" src="../assets/js/amazeui.min.js"></script>
 		<script type="text/javascript" src="../assets/js/app.js" ></script>
 		<script type="text/javascript" src="../assets/js/blockUI.js" ></script>
-
-        <script type="text/javascript">
+		<script type="text/javascript" src="../assets/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js" ></script>
+		<script type="text/javascript" src="../assets/js/common.js"></script>
+		<script type="text/javascript">
 
             $(function () {
                 var content="";
@@ -221,9 +164,9 @@
                         +'</div></div></td></tr>'   ;
                 }
               
-                $("#myTable").html(content)
+                $("#myTable").html(content);
 
-
+                $('#datetimepicker').datetimepicker();
             });
         </script>
 	</body>
