@@ -156,22 +156,31 @@
                         alert("Connection error");
                     },
                     success: function(data) {
+                        var content="";
                         if(data.code==0){
-                            alert(data.data);
-                            var content="";
-                            for (var i=0;i<10;i++){
+							var dataList=data.data;
+                            $(dataList).each(function(i,val) {
+                                var oneId=val.oneId;
+                                var name=val.name;
+                                var newDate=new Date();
+                                newDate.setTime(val.crtDate);
+                                var crtDate=(newDate).Format("yyyy-MM-dd hh:mm:ss");
                                 content+=' <tr>'
                                     +'<td><input type="checkbox" /></td>'
-                                    +'   <td>1</td>'
-                                    +' <td><a href="#">商品名称</a></td>'
-                                    +'<td class="am-hide-sm-only">2014年9月4日 7:28:47</td>'
+                                    +'   <td>'+oneId+'</td>'
+                                    +' <td><a href="#">'+name+'</a></td>'
+                                    +'<td class="am-hide-sm-only">'+crtDate+'</td>'
                                     +'<td>'
                                     +'<div class="am-btn-toolbar">'
                                     +'<div class="am-btn-group am-btn-group-xs">'
                                     +'<button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>'
                                     +'<button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>'
                                     +'</div></div></td></tr>'   ;
-                            }
+							});
+
+
+
+
 
                             $("#myTable").html(content);
                         }
