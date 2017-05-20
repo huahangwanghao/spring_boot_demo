@@ -45,7 +45,7 @@ $(function () {
         +"</ul>"
         +"</li>"
         +"<li class=\"admin-parent\">"
-        +"<a class=\"am-cf\" data-am-collapse=\"{target: '#collapse-nav5'}\"><span class=\"am-icon-file\"></span> 表单 <span class=\"am-icon-angle-right am-fr am-margin-right\"></span></a>"
+        +"<a class=\"am-cf\" data-am-collapse=\"{target: '#collapse-nav5'}\"><span class=\"am-icon-file\"></span> 商品管理 <span class=\"am-icon-angle-right am-fr am-margin-right\"></span></a>"
         +"<ul class=\"am-list am-collapse admin-sidebar-sub am-in\" id=\"collapse-nav5\">"
         +"<li><a href=\"form_basic.html\" class=\"am-cf\"> 基本表单</a></li>"
         +"<li><a href=\"form_validate.html\">购买信息录入</a></li>"
