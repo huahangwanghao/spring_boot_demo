@@ -41,25 +41,12 @@
 		
 		
 		<div class="admin">
-			<!--<div class="am-g">-->
-		<!-- ========== Left Sidebar Start ========== -->
-		<!--<div class="left side-menu am-hide-sm-only am-u-md-1 am-padding-0">
-			<div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 548px;">
-				<div class="sidebar-inner slimscrollleft" style="overflow: hidden; width: auto; height: 548px;">-->
+
                   <!-- sidebar start -->
 				  <div class="admin-sidebar am-offcanvas  am-padding-0" id="admin-offcanvas">
 				  </div>
 				  <!-- sidebar end -->
-    
-				<!--</div>
-			</div>
-		</div>-->
-		<!-- ========== Left Sidebar end ========== -->
-		
-		
-		
-	<!--	<div class="am-g">-->
-		<!-- ============================================================== -->
+
 		<!-- Start right Content here -->
 		<div class="content-page">
 			<!-- Start content -->
@@ -73,49 +60,42 @@
 								    <a style="display: none;" class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
 								       <span class="am-icon-caret-down"></span>
 								    </a>
-								    <ul class="am-dropdown-content">
-								      <li>1231234</li>
-								      <li>1231234</li>
-								      <li>1231234</li>
-								      <li>1231234</li>
-								    </ul>
+
 								  </li>
 								</ul>
 								
-								<form action="" class="am-form" data-am-validator>
+								<form action="" class="am-form" id="orderForm" data-am-validator>
 								  <fieldset>
 								    <legend>信息录入</legend>
 
 									  <div class="am-form-group">
 										  <label for="doc-select-1">选择商品类型:</label>
-										  <select id="doc-select-1" required>
-											  <option value="">-=请选择一项=-</option>
-											  <option value="option1">化妆品1</option>
-											  <option value="option2">化妆品2</option>
-											  <option value="option3">化妆品3</option>
+										  <select name="12" id="doc-select-1" >
+											  <option value="-1">-=请选择一项=-</option>
+
 										  </select>
 										  <span class="am-form-caret"></span>
 									  </div>  
 								    <div class="am-form-group">
 								      <label for="doc-vld-name-2">商品名称：</label>
-								      <input type="text" id="doc-vld-name-2" minlength="3" placeholder="输入用户名（至少 3 个字符）" required/>
+								      <input name="goodName" type="text" id="doc-vld-name-2" minlength="3" placeholder="输入用户名（至少 3 个字符）" required/>
 								    </div>
 									  
 									  <div class="am-form-group">
 										  <label for="doc-vld-name-2">顾客姓名：</label>
-										  <input type="text" id="customerName"  placeholder="输入姓名" />
+										  <input name="cName" type="text" id="customerName"  placeholder="输入姓名" />
 									  </div>
 
 									  <div class="am-form-group">
 										  <label for="doc-vld-name-2">顾客手机号：</label>
-										  <input type="text" id="customerPhone"  placeholder="输入手机号" />
+										  <input name="cPhone" type="text" id="customerPhone"  placeholder="输入手机号" />
 									  </div>
 
 									
 								
 								    <div class="am-form-group" style="display: none">
 								      <label for="doc-vld-email-2">邮箱：</label>
-								      <input type="email" id="doc-vld-email-2" placeholder="输入邮箱" required/>
+								      <input name="oneLevelId" type="email" id="doc-vld-email-2" placeholder="输入邮箱" value="213" required/>
 								    </div>
 								
 								    <div class="am-form-group" style="display: none;">
@@ -129,9 +109,12 @@
 								    </div>
 									  <div class="am-form-group">
 										  <label for="doc-vld-age-2">数量：</label>
-										  <input type="number" class=""  id="doc-vld-count-2" placeholder="输入购买数量" min="0" max="12090908" required />
+										  <input name="goodCount" type="number" class=""  id="doc-vld-count-2" placeholder="输入购买数量" min="0" max="12090908" required />
 									  </div>
-								
+									  <div class="am-form-group">
+										  <label for="doc-vld-age-2">总价：</label>
+										  <input name="amount" type="text" class=""  id="moneyCount" placeholder="输入总金额" min="0" max="12090908" required />
+									  </div>
 								    <div class="am-form-group" style="display: none">
 								      <label class="am-form-label">爱好：</label>
 								      <label class="am-checkbox-inline">
@@ -182,7 +165,7 @@
 								      <textarea id="doc-vld-ta-2" minlength="0" maxlength="100"></textarea>
 								    </div>
 								
-								    <button class="am-btn am-btn-secondary" type="submit">提交</button>
+								    <button class="am-btn am-btn-secondary" type="button" onclick="addOrder()">提交</button>
 								  </fieldset>
 								</form>
 								
@@ -210,6 +193,72 @@
 		<script type="text/javascript" src="../assets/js/app.js" ></script>
 		<script type="text/javascript" src="../assets/js/blockUI.js" ></script>
 		<script type="text/javascript" src="../assets/js/common.js"></script>
+		<script type="text/javascript">
+
+
+            $(function () {
+                $.ajax({
+                    cache: true,
+                    type: "GET",
+                    url:"/getAllOneLevel",
+                    async: false,
+                    error: function(request) {
+                        alert("Connection error");
+                    },
+                    success: function(data) {
+                        var content="";
+                        if(data.code==0){
+                            var dataList=data.data;
+                            $(dataList).each(function(i,val) {
+                                var oneId=val.oneId;
+                                var name=val.name;
+                                content+='<option value='+oneId+'>'+name+'</option>';
+
+                            });
+                            $("#doc-select-1").append(content);
+                        }
+                        else{
+                            alert("新增失败");
+                        }
+                    }
+                });
+            });
+
+
+            function addOrder(){
+                // $("#oneLevelForm").submit();
+
+                var oneLevelId= $("#doc-select-1").find("option:selected").val()
+                if(oneLevelId==-1){
+                    alert("请选择商品");
+                    return;
+				}
+                $("#doc-vld-email-2").val(oneLevelId);
+
+                $.ajax({
+                    cache: true,
+                    type: "Post",
+                    url:"/addOrder.do",
+                    data:$('#orderForm').serialize(),// 你的formid
+                    async: false,
+                    error: function(request) {
+                        alert("Connection error");
+                    },
+                    success: function(data) {
+                        if(data.code==0){
+                            alert("新增成功");
+                        }
+                        else{
+                            alert("新增失败");
+                        }
+                    }
+                });
+
+
+            }
+
+
+		</script>
 	</body>
 	
 </html>

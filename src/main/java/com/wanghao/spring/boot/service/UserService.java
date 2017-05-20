@@ -1,6 +1,7 @@
 package com.wanghao.spring.boot.service;
 
 import com.wanghao.spring.boot.bean.OneLevel;
+import com.wanghao.spring.boot.bean.OrderTable;
 import com.wanghao.spring.boot.bean.ResultBean;
 
 /**
@@ -15,4 +16,6 @@ public interface UserService {
     ResultBean getAllOneLevel();
 
     ResultBean updateOneLevelNameById(OneLevel oneLevel);
+
+    ResultBean addOrder(OrderTable orderTable);
 }
