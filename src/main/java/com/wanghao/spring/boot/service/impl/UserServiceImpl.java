@@ -39,6 +39,12 @@ public class UserServiceImpl implements UserService {
         return ResultUtils.success(oneLevelDao.findAll());
     }
 
+    @Override
+    public ResultBean updateOneLevelNameById(OneLevel oneLevel) {
+        oneLevel.setCrtDate(new Date());
+        oneLevelDao.saveAndFlush(oneLevel);
+        return  ResultUtils.success("修改成功");
+    }
 
-    
+
 }

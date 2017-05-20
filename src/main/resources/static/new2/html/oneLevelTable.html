@@ -59,7 +59,7 @@
 						<div class="am-u-sm-12 am-u-md-6">
 				          <div class="am-btn-toolbar">
 				            <div class="am-btn-group am-btn-group-xs">
-				              <button type="button" class="am-btn am-btn-default"><span class="am-icon-plus"></span> <a href="oneLevelAdd.html">新增</a></button>
+				              <button  type="button" class="am-btn am-btn-default"><a href="oneLevelAdd.html"><span class="am-icon-plus"></span> 新增</a></button>
 				              <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 保存</button>
 				              <button type="button" class="am-btn am-btn-default"><span class="am-icon-trash-o"></span> 删除</button>
 				            </div>
@@ -168,12 +168,12 @@
                                 content+=' <tr>'
                                     +'<td><input type="checkbox" /></td>'
                                     +'   <td>'+oneId+'</td>'
-                                    +' <td><a href="#">'+name+'</a></td>'
+                                    +' <td><a href="oneLevelUpdate.html?type=update&id='+oneId+'&name='+name+'">'+name+'</a></td>'
                                     +'<td class="am-hide-sm-only">'+crtDate+'</td>'
                                     +'<td>'
                                     +'<div class="am-btn-toolbar">'
                                     +'<div class="am-btn-group am-btn-group-xs">'
-                                    +'<button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>'
+                                    +'<button class="am-btn am-btn-default am-btn-xs am-text-secondary"><a href="oneLevelUpdate.html?type=update&id='+oneId+'&name='+name+'"><span class="am-icon-pencil-square-o"></span> 编辑</a></button>'
                                     +'<button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>'
                                     +'</div></div></td></tr>'   ;
 							});

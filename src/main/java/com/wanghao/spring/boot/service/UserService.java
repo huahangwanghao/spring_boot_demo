@@ -13,4 +13,6 @@ public interface UserService {
 
 
     ResultBean getAllOneLevel();
+
+    ResultBean updateOneLevelNameById(OneLevel oneLevel);
 }

@@ -37,4 +37,9 @@ public class UserController {
         return userServicel.getAllOneLevel();
     }
 
+    @GetMapping(value = "/updateOneLevelNameById")
+    public ResultBean updateOneLevelNameById(OneLevel oneLevel){
+        return userServicel.updateOneLevelNameById(oneLevel);
+    }
+
 }
