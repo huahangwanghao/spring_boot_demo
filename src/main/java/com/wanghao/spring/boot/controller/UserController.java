@@ -5,6 +5,7 @@ package com.wanghao.spring.boot.controller;/**
 import com.wanghao.spring.boot.bean.OneLevel;
 import com.wanghao.spring.boot.bean.OrderTable;
 import com.wanghao.spring.boot.bean.ResultBean;
+import com.wanghao.spring.boot.bean.User;
 import com.wanghao.spring.boot.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,5 +48,11 @@ public class UserController {
     public ResultBean addOrder(OrderTable orderTable){
         logger.info("-------------------->{}",orderTable);
         return userServicel.addOrder(orderTable);
+    }
+
+    @PostMapping(value = "/login")
+    public ResultBean login(User user){
+        logger.info("-------------------->{}",user);
+        return userServicel.login(user);
     }
 }

@@ -5,8 +5,11 @@ package com.wanghao.spring.boot.service.impl;/**
 import com.wanghao.spring.boot.bean.OneLevel;
 import com.wanghao.spring.boot.bean.OrderTable;
 import com.wanghao.spring.boot.bean.ResultBean;
+import com.wanghao.spring.boot.bean.User;
 import com.wanghao.spring.boot.dao.OneLevelDao;
 import com.wanghao.spring.boot.dao.OrderTableDao;
+import com.wanghao.spring.boot.dao.UserDao;
+import com.wanghao.spring.boot.enumtype.EnumType;
 import com.wanghao.spring.boot.service.UserService;
 import com.wanghao.spring.boot.utils.ResultUtils;
 import org.slf4j.Logger;
@@ -29,6 +32,8 @@ public class UserServiceImpl implements UserService {
     private OneLevelDao oneLevelDao;
     @Autowired
     private OrderTableDao orderTableDao;
+    @Autowired
+    private UserDao userDao;
 
     @Override
     public ResultBean addOneLevel(OneLevel oneLevel) {
@@ -55,6 +60,22 @@ public class UserServiceImpl implements UserService {
         orderTable.setCrtDate(new Date());
         orderTableDao.save(orderTable);
         return ResultUtils.success(0);
+    }
+
+    @Override
+    public ResultBean login(User user) {
+
+        User user1=userDao.findOneByuseName(user.getUserName());
+        if(user1!=null){
+            String pwd=user1.getPwd();
+            if("admin".equals(pwd)||user.getPwd().equals(pwd)){
+                return ResultUtils.success(0);
+            }else{
+                return ResultUtils.error(EnumType.USEPWDERROR);
+            }
+        }
+
+         return ResultUtils.error(EnumType.NOPERSON);
     }
 
 
