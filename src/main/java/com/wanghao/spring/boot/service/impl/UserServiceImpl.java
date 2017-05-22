@@ -144,7 +144,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResultBean getOrderBySearch(PageInfo pageInfo) {
 
-        Sort.Order order=new Sort.Order(Sort.Direction.DESC,"crtDate");
+        Sort.Order order=new Sort.Order(Sort.Direction.DESC,"orderId");
         Sort sort=new Sort(order);
 
         Pageable pageable=new PageRequest(pageInfo.getPageNo(),pageInfo.getPageSize(),sort);

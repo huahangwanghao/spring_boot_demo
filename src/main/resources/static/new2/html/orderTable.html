@@ -102,13 +102,13 @@
               共 <span id="totalCount">1</span> 条记录
               <div class="am-fr">
                 <ul class="am-pagination">
-                  <li class="am-disabled"><a href="#">«</a></li>
-                  <li class="am-active"><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">4</a></li>
-                  <li><a href="#">5</a></li>
-                  <li><a href="#">»</a></li>
+                  <li><a onclick="preLine();" href="#">«</a></li>
+                  <li class="am-active"><a onclick="nowLine();" id="l1" href="#">1</a></li>
+                  <li><a onclick="return nowLine(this.id);" id="l2" href="#">2</a></li>
+                  <li><a onclick="nowLine();" id="l3" href="#">3</a></li>
+                  <li><a onclick="nowLine();" id="l4" href="#">4</a></li>
+                  <li><a onclick="nowLine();" id="l5" href="#">5</a></li>
+                  <li><a onclick="nowLine();" onclick="nextLine()" href="#">»</a></li>
                 </ul>
               </div>
             </div>
@@ -148,7 +148,7 @@
 
             $(function () {
 				var pageNo=0;
-				var pageSize=10;
+				var pageSize=2;
 				var totalCount=1;
 				var  search="";
                 $.ajax({
@@ -169,6 +169,7 @@
                         if(data.code==0){
 							var dataList=data.data.content;
                             totalCount=data.data.totalPages;
+                            var totalLine=data.data.totalElements;
                             $(dataList).each(function(i,val) {
                                 var orderId=val.orderId;
                                 var name=val.goodName;
@@ -195,6 +196,8 @@
 							});
 
 							$("#totalCount").html(totalCount)
+                            $("#totalPage").html(totalCount)
+                            $("#totalLine").html(totalLine)
                             $("#myTable").html(content);
                         }
                         else{
@@ -205,9 +208,8 @@
             });
             
             
-            function search(){
-                var pageNo=0;
-                var pageSize=10;
+            function search(pageNo){
+                var pageSize=2;
                 var totalCount=1;
                 var  search=$("#search").val();
                 $.ajax({
@@ -262,8 +264,57 @@
                     }
                 });
 			}
+			
+			function preLine(){
+                
+                var l1=$("#l1").html();
+                if(1>=l1){
+                    return ;
+				}else{
+                    var page1=parseFloat($("#l1").html())-5;
+                    var page2=parseFloat($("#l2").html())-5;
+                    var page3=parseFloat($("#l3").html())-5;
+                    var page4=parseFloat($("#l4").html())-5;
+                    var page5=parseFloat($("#l5").html())-5;
+                    $("#l1").html(page1);
+                    $("#l2").html(page2);
+                    $("#l3").html(page3);
+                    $("#l4").html(page4);
+                    $("#l5").html(page5);
+                    alert(page1);
+                    search(page1);
+				}
+			}
+			
+			function nextLine(){
+                var l5=$("#l5").html();
+                var page1=parseFloat($("#l1").html())+5;
+                var page2=parseFloat($("#l2").html())+5;
+                var page3=parseFloat($("#l3").html())+5;
+                var page4=parseFloat($("#l4").html())+5;
+                var page5=parseFloat($("#l5").html())+5;
+                $("#l1").html(page1);
+                $("#l2").html(page2);
+                $("#l3").html(page3);
+                $("#l4").html(page4);
+                $("#l5").html(page5);
+                search(page1);
+			}
+			
+			function nowLine(id){
+                $("li").click(function (e){
+                    var onclick_val= $(e.target).attr("id");
+                    var page1=$("#"+onclick_val).html();
+                    search(page1);
+                })
+			}
             
         </script>
+		
+		
+	
+	<input  type="hidden" id="totalPage"/>
+	<input type="hidden" id="totalLine">
 	</body>
 	
 </html>
