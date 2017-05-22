@@ -1,6 +1,6 @@
 server:
   port: 8888
-  context-path: /
+
 
 name1: 测试环境
 age1: 18
