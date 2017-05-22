@@ -4,6 +4,7 @@ package com.wanghao.spring.boot.service.impl;/**
 
 import com.wanghao.spring.boot.bean.OneLevel;
 import com.wanghao.spring.boot.bean.OrderTable;
+import com.wanghao.spring.boot.bean.PageInfo;
 import com.wanghao.spring.boot.bean.ResultBean;
 import com.wanghao.spring.boot.bean.User;
 import com.wanghao.spring.boot.dao.OneLevelDao;
@@ -17,10 +18,21 @@ import org.hibernate.transform.Transformers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -112,6 +124,7 @@ public class UserServiceImpl implements UserService {
                 "select o.one_level_id,sum(1) as sumCount from order_table o where  DATE_FORMAT(o.crt_date,'%Y-%m')=? GROUP BY o.one_level_id\n" +
                 ") t where ol.one_id=t.one_level_id";
 
+        
         Query query=entityManager.createNativeQuery(sql);
 
         query.unwrap(SQLQuery.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
@@ -120,6 +133,41 @@ public class UserServiceImpl implements UserService {
 
 
         return ResultUtils.success(list);
+    }
+
+    /**
+     * 通过查询条件,查询客户购买的情况
+     *
+     * @param pageInfo
+     * @return
+     */
+    @Override
+    public ResultBean getOrderBySearch(PageInfo pageInfo) {
+
+        Sort.Order order=new Sort.Order(Sort.Direction.DESC,"crtDate");
+        Sort sort=new Sort(order);
+
+        Pageable pageable=new PageRequest(pageInfo.getPageNo(),pageInfo.getPageSize(),sort);
+
+
+        Specification<OrderTable> specification=new Specification<OrderTable>() {
+            @Override
+            public Predicate toPredicate(Root<OrderTable> root,
+                                         CriteriaQuery<?> criteriaQuery, 
+                                         CriteriaBuilder cb) {
+                
+                Path<String> path=root.get("cName");
+                if(!StringUtils.isEmpty(pageInfo.getSearch()))
+                criteriaQuery.where(cb.like(path, "%"+pageInfo.getSearch()+"%"));
+                /**http://blog.csdn.net/ie8848520/article/details/8161986
+                 * 连接查询条件, 不定参数，可以连接0..N个查询条件 
+                 */
+               // query.where(cb.like(namePath, "%李%"), cb.like(nicknamePath, "%王%")); //这里可以设置任意条查询条件  
+                return null;
+            }
+        };
+        Page<OrderTable> page=orderTableDao.findAll(specification,pageable);
+        return ResultUtils.success(page);
     }
 
 

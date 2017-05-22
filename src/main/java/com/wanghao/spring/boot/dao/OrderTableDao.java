@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * Created by Administrator on 2017/5/19.
  */
-public interface OrderTableDao extends JpaRepository<OrderTable,Integer> ,JpaSpecificationExecutor<Map<String,Object>> {
+public interface OrderTableDao extends JpaRepository<OrderTable,Integer> ,JpaSpecificationExecutor<OrderTable> {
     
     
     

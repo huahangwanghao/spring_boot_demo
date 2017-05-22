@@ -4,6 +4,7 @@ package com.wanghao.spring.boot.controller;/**
 
 import com.wanghao.spring.boot.bean.OneLevel;
 import com.wanghao.spring.boot.bean.OrderTable;
+import com.wanghao.spring.boot.bean.PageInfo;
 import com.wanghao.spring.boot.bean.ResultBean;
 import com.wanghao.spring.boot.bean.User;
 import com.wanghao.spring.boot.service.UserService;
@@ -66,7 +67,11 @@ public class UserController {
         logger.info("-------------------->{}",month);
         return userServicel.getGoodsByMonth(month);
     }
-
+    @GetMapping(value = "/getOrderBySearch")
+    public ResultBean getOrderBySearch(PageInfo pageInfo){
+        logger.info("-------------------->{}");
+        return userServicel.getOrderBySearch(pageInfo);
+    }
 
     
 }

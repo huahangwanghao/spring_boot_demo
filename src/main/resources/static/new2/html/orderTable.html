@@ -26,7 +26,7 @@
 			<div class="contain">
 				<ul class="am-nav am-navbar-nav am-navbar-left">
 
-					<li><h4 class="page-title">商品查询</h4></li>
+					<li><h4 class="page-title">订单查询</h4></li>
 				</ul>
 				
 				<ul class="am-nav am-navbar-nav am-navbar-right">
@@ -59,23 +59,17 @@
 						<div class="am-u-sm-12 am-u-md-6">
 				          <div class="am-btn-toolbar">
 				            <div class="am-btn-group am-btn-group-xs">
-				              <button  type="button" class="am-btn am-btn-default"><a href="oneLevelAdd.html"><span class="am-icon-plus"></span> 新增</a></button>
+				              <button  type="button" class="am-btn am-btn-default"><a href="form_validate.html"><span class="am-icon-plus"></span> 新增</a></button>
 				              <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 保存</button>
 				              <button type="button" class="am-btn am-btn-default"><span class="am-icon-trash-o"></span> 删除</button>
 				            </div>
 				          </div>
 				        </div>
 						<div class="am-u-sm-12 am-u-md-3">
-							<div class="input-append date" id="datetimepicker" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
-								<input size="16" type="text" value="12-02-2012" readonly>
-								<span class="add-on"><i class="icon-th"></i></span>
-							</div>
-						</div>
-						<div class="am-u-sm-12 am-u-md-3">
 				          <div class="am-input-group am-input-group-sm">
-				            <input type="text" class="am-form-field">
+				            <input id="search" type="text" class="am-form-field">
 				          <span class="am-input-group-btn">
-				            <button class="am-btn am-btn-default" type="button">搜索</button>
+				            <button  class="am-btn am-btn-default" type="button" onclick="search();">搜索</button>
 				          </span>
 				          </div>
 				        </div>
@@ -89,7 +83,14 @@
             <table class="am-table am-table-striped am-table-hover table-main">
               <thead>
               <tr>
-                <th class="table-check"><input type="checkbox" /></th><th class="table-id">ID</th><th class="table-title">一级商品名称</th><th class="table-date am-hide-sm-only">创建日期</th><th class="table-set">操作</th>
+				  <th class="table-check"><input type="checkbox" /></th>
+				  <th class="table-id">ID</th>
+				  <th class="table-title">商品名称</th>
+				  <th class="table-type">类别</th>
+				  <th class="table-author am-hide-sm-only">客户姓名</th>
+				  <th class="table-author am-hide-sm-only">手机号码</th>
+				  <th class="table-date am-hide-sm-only">购买日期</th>
+				  <th class="table-set">操作</th>
               </tr>
               </thead>
               <tbody id="myTable">
@@ -98,7 +99,7 @@
               </tbody>
             </table>
             <div class="am-cf">
-              共 1 条记录
+              共 <span id="totalCount">1</span> 条记录
               <div class="am-fr">
                 <ul class="am-pagination">
                   <li class="am-disabled"><a href="#">«</a></li>
@@ -146,11 +147,19 @@
 		<script type="text/javascript">
 
             $(function () {
-
+				var pageNo=0;
+				var pageSize=10;
+				var totalCount=1;
+				var  search="";
                 $.ajax({
                     cache: true,
                     type: "GET",
-                    url:"/getAllOneLevel",
+                    url:"/getOrderBySearch",
+					data:{
+                        pageNo:pageNo,
+						pageSize:pageSize,
+						search:search
+					},
                     async: false,
                     error: function(request) {
                         alert("Connection error");
@@ -158,47 +167,102 @@
                     success: function(data) {
                         var content="";
                         if(data.code==0){
-							var dataList=data.data;
+							var dataList=data.data.content;
+                            totalCount=data.data.totalPages;
                             $(dataList).each(function(i,val) {
-                                var oneId=val.oneId;
-                                var name=val.name;
+                                var orderId=val.orderId;
+                                var name=val.goodName;
+                                var cName=val.cName;
+                                var cPhone=val.cPhone;
+                                var oneLevelId=val.oneLevelId;
                                 var newDate=new Date();
                                 newDate.setTime(val.crtDate);
                                 var crtDate=(newDate).Format("yyyy-MM-dd hh:mm:ss");
                                 content+=' <tr>'
                                     +'<td><input type="checkbox" /></td>'
-                                    +'   <td>'+oneId+'</td>'
-                                    +' <td><a href="oneLevelUpdate.html?type=update&id='+oneId+'&name='+name+'">'+name+'</a></td>'
+                                    +'   <td>'+orderId+'</td>'
+                                    +' <td><a href="oneLevelUpdate.html?type=update&id='+orderId+'&name='+name+'">'+name+'</a></td>'
+                                    +'<td class="am-hide-sm-only">'+oneLevelId+'</td>'
+                                    +'<td class="am-hide-sm-only">'+cName+'</td>'
+                                    +'<td class="am-hide-sm-only">'+cPhone+'</td>'
                                     +'<td class="am-hide-sm-only">'+crtDate+'</td>'
                                     +'<td>'
                                     +'<div class="am-btn-toolbar">'
                                     +'<div class="am-btn-group am-btn-group-xs">'
-                                    +'<button class="am-btn am-btn-default am-btn-xs am-text-secondary"><a href="oneLevelUpdate.html?type=update&id='+oneId+'&name='+name+'"><span class="am-icon-pencil-square-o"></span> 编辑</a></button>'
+                                    +'<button class="am-btn am-btn-default am-btn-xs am-text-secondary"><a href="oneLevelUpdate.html?type=update&id='+orderId+'&name='+name+'"><span class="am-icon-pencil-square-o"></span> 编辑</a></button>'
                                     +'<button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>'
                                     +'</div></div></td></tr>'   ;
 							});
 
-
-
-
-
+							$("#totalCount").html(totalCount)
                             $("#myTable").html(content);
                         }
                         else{
-                            alert("新增失败");
-
-
+                            alert("查询失败");
                         }
                     }
                 });
-                
-                
-                
-                
-                
-               
-
             });
+            
+            
+            function search(){
+                var pageNo=0;
+                var pageSize=10;
+                var totalCount=1;
+                var  search=$("#search").val();
+                $.ajax({
+                    cache: true,
+                    type: "GET",
+                    url:"/getOrderBySearch",
+                    data:{
+                        pageNo:pageNo,
+                        pageSize:pageSize,
+                        search:search
+                    },
+                    async: false,
+                    error: function(request) {
+                        alert("Connection error");
+                    },
+                    success: function(data) {
+                        var content="";
+                        if(data.code==0){
+                            var dataList=data.data.content;
+                            totalCount=data.data.totalPages;
+                            $(dataList).each(function(i,val) {
+                                var orderId=val.orderId;
+                                var name=val.goodName;
+                                var cName=val.cName;
+                                var cPhone=val.cPhone;
+                                var oneLevelId=val.oneLevelId;
+                                var newDate=new Date();
+                                newDate.setTime(val.crtDate);
+                                var crtDate=(newDate).Format("yyyy-MM-dd hh:mm:ss");
+                                content+=' <tr>'
+                                    +'<td><input type="checkbox" /></td>'
+                                    +'   <td>'+orderId+'</td>'
+                                    +' <td><a href="oneLevelUpdate.html?type=update&id='+orderId+'&name='+name+'">'+name+'</a></td>'
+                                    +'<td class="am-hide-sm-only">'+oneLevelId+'</td>'
+                                    +'<td class="am-hide-sm-only">'+cName+'</td>'
+                                    +'<td class="am-hide-sm-only">'+cPhone+'</td>'
+                                    +'<td class="am-hide-sm-only">'+crtDate+'</td>'
+                                    +'<td>'
+                                    +'<div class="am-btn-toolbar">'
+                                    +'<div class="am-btn-group am-btn-group-xs">'
+                                    +'<button class="am-btn am-btn-default am-btn-xs am-text-secondary"><a href="oneLevelUpdate.html?type=update&id='+orderId+'&name='+name+'"><span class="am-icon-pencil-square-o"></span> 编辑</a></button>'
+                                    +'<button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>'
+                                    +'</div></div></td></tr>'   ;
+                            });
+
+                            $("#totalCount").html(totalCount)
+                            $("#myTable").html(content);
+                        }
+                        else{
+                            alert("查询失败");
+                        }
+                    }
+                });
+			}
+            
         </script>
 	</body>
 	

@@ -33,6 +33,7 @@ $(function () {
         +"<li style='display: none'><a href=\"table_basic.html\" class=\"am-cf\"> 基本表格</span></a></li>"
         +"<li style='display: none'><a href=\"table_complete.html\">完整表格</a></li>"
         +"<li><a href=\"oneLevelTable.html\">一级商品查询</a></li>"
+        +"<li><a href=\"orderTable.html\">订单查询</a></li>"
     
         +"</ul>"
         +"</li>"
