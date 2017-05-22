@@ -324,10 +324,11 @@
                         if(data.code==0){
                             var dataList=data.data;
                             $(dataList).each(function(i,val) {
-                                var newDate=new Date();
+                               /* var newDate=new Date();
                                 newDate.setTime(val.crtDate);
-                                var crtDate=(newDate).Format("yyyy-MM-dd");
-								x.push(crtDate);
+                                var crtDate=(newDate).Format("yyyy-MM-dd");*/
+                               alert(val.crtDate);
+								x.push(val.crtDate);
 								y.push(val.amount);
                             });
                             xy.x=x;

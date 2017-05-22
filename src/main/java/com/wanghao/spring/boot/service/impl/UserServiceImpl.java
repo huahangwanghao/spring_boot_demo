@@ -11,15 +11,19 @@ import com.wanghao.spring.boot.dao.OrderTableDao;
 import com.wanghao.spring.boot.dao.UserDao;
 import com.wanghao.spring.boot.enumtype.EnumType;
 import com.wanghao.spring.boot.service.UserService;
-import com.wanghao.spring.boot.utils.DateUtils;
 import com.wanghao.spring.boot.utils.ResultUtils;
+import org.hibernate.SQLQuery;
+import org.hibernate.transform.Transformers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户的实现类
@@ -36,6 +40,8 @@ public class UserServiceImpl implements UserService {
     private OrderTableDao orderTableDao;
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private EntityManager entityManager;
 
     @Override
     public ResultBean addOneLevel(OneLevel oneLevel) {
@@ -85,7 +91,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResultBean getMoneyByMonth(String month) {
 
-        List<OrderTable> list =orderTableDao.findByCrtDateBetween(DateUtils.string2Date(month+"-00","yyyy-MM-dd"),DateUtils.string2Date(month+"-32","yyyy-MM-dd"));
+        String sql="select DATE_FORMAT(o.crt_date,'%Y-%m-%d') as crtDate,sum(o.amount) as amount from order_table o where  DATE_FORMAT(o.crt_date,'%Y-%m')=? GROUP BY DATE_FORMAT(o.crt_date,'%Y-%m-%d')";
+
+
+
+        Query query=entityManager.createNativeQuery(sql);
+
+        query.unwrap(SQLQuery.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+
+        List<Map<String,Object>> list=query.setParameter(1,month).getResultList();
+        
+        
         return ResultUtils.success(list);
     }
 
