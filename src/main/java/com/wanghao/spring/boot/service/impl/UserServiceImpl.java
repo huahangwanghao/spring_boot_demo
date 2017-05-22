@@ -11,6 +11,7 @@ import com.wanghao.spring.boot.dao.OrderTableDao;
 import com.wanghao.spring.boot.dao.UserDao;
 import com.wanghao.spring.boot.enumtype.EnumType;
 import com.wanghao.spring.boot.service.UserService;
+import com.wanghao.spring.boot.utils.DateUtils;
 import com.wanghao.spring.boot.utils.ResultUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 用户的实现类
@@ -78,6 +80,13 @@ public class UserServiceImpl implements UserService {
         }
 
          return ResultUtils.error(EnumType.NOPERSON);
+    }
+
+    @Override
+    public ResultBean getMoneyByMonth(String month) {
+
+        List<OrderTable> list =orderTableDao.findByCrtDateBetween(DateUtils.string2Date(month+"-00","yyyy-MM-dd"),DateUtils.string2Date(month+"-32","yyyy-MM-dd"));
+        return ResultUtils.success(list);
     }
 
 

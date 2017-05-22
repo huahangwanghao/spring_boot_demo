@@ -21,4 +21,6 @@ public interface UserService {
     ResultBean addOrder(OrderTable orderTable);
 
     ResultBean login(User user);
+
+    ResultBean getMoneyByMonth(String month);
 }

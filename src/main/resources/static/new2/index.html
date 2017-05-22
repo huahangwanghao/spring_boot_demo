@@ -30,7 +30,7 @@
 						<form role="search" class="app-search">
 							<div class="am-form-group">
 								<div class="am-g">
-									<select id="doc-select-1">
+									<select id="doc-select-1" onchange="onChange();">
 										<option value="option1">2016-01</option>
 										<option value="option1">2016-02</option>
 										<option value="option1">2016-03</option>
@@ -166,24 +166,31 @@
 		<script type="text/javascript" src="assets/js/blockUI.js" ></script>
 		<script type="text/javascript" src="assets/js/charts/echarts.min.js" ></script>
 		<script type="text/javascript" src="assets/js/charts/indexChart.js" ></script>
+		<script type="text/javascript" src="assets/js/common.js" ></script>
         <script type="text/javascript">
 
 
             $(function () {
 
-                moneyLine();
-                goodLine();
 
+
+
+
+                var xy=getMoney();
+                var x= xy.x;
+                var y=xy.y;
+
+                moneyLine(x,y);
+                var x1=['化妆品1', '化妆品2', '化妆品3', '化妆品4', '化5', '化6', '化妆品7','化妆品1', '化妆品2', '化妆品3', '化妆品4', '化5', '化6', '化妆品7','化妆品1', '化妆品2', '化妆品3', '化妆品4', '化5', '化6', '化妆品7'];
+                var y1=[10, 52, 200, 334, 390, 330, 220,10, 52, 200, 334, 390, 370, 224,10, 52, 200, 334, 390, 330, 220];
+
+                goodLine(x1,y1);
+               
 
             });
 
 
-            function moneyLine(){
-
-
-                var x= ['周一','周二','周三','周四','周五','周六','周日','周一','周二','周三','周四','周五','周六','周日','周一','周二','周三','周四','周五','周六','周日'];
-                var y=[11, 11, 15, 132, 12, 13, 10,11, 11, 15, 132, 12, 13, 10,11, 11, 15, 136, 12, 13, 10];
-
+            function moneyLine(x,y){
                 var myChart = echarts.init(document.getElementById("index-line-1"));
 
                 option = {
@@ -224,46 +231,15 @@
                                 ]
                             }
                         },
-                        /*{
-                            name:'最低气温',
-                            type:'line',
-                            data:[1, -2, 2, 5, 3, 2, 0],
-                            markPoint: {
-                                data: [
-                                    {name: '周最低', value: -2, xAxis: 1, yAxis: -1.5}
-                                ]
-                            },
-                            markLine: {
-                                data: [
-                                    {type: 'average', name: '平均值'},
-                                    [{
-                                        symbol: 'none',
-                                        x: '90%',
-                                        yAxis: 'max'
-                                    }, {
-                                        symbol: 'circle',
-                                        label: {
-                                            normal: {
-                                                position: 'start',
-                                                formatter: '最大值'
-                                            }
-                                        },
-                                        type: 'max',
-                                        name: '最高点'
-                                    }]
-                                ]
-                            }
-                        }*/
+                        
                     ]
                 };
                 myChart.setOption(option);
             }
 
-            function goodLine(){
+            function goodLine(x,y){
 
-                var x=['化妆品1', '化妆品2', '化妆品3', '化妆品4', '化5', '化6', '化妆品7','化妆品1', '化妆品2', '化妆品3', '化妆品4', '化5', '化6', '化妆品7','化妆品1', '化妆品2', '化妆品3', '化妆品4', '化5', '化6', '化妆品7'];
-                var y=[10, 52, 200, 334, 390, 330, 220,10, 52, 200, 334, 390, 370, 224,10, 52, 200, 334, 390, 330, 220];
-
+                
                 var myChart = echarts.init(document.getElementById("index-bar-1"));
 
                 option = {
@@ -305,6 +281,51 @@
                 };
                 myChart.setOption(option);
             };
+            
+            function onChange(){
+                var date= $("#doc-select-1").find("option:selected").text()
+                alert(date);
+			}
+			
+			
+			function getMoney(){
+                var month="2017-02";
+                var xy=new Object();
+                var x=new Array();
+                var y=new Array();
+               
+                $.ajax({
+                    cache: true,
+                    type: "POST",
+                    url:"/getMoneyByMonth.do",
+					data:{month:month},
+                    async: false,
+                    error: function(request) {
+                        alert("Connection error");
+                    },
+                    success: function(data) {
+                        var content="";
+                        if(data.code==0){
+                            var dataList=data.data;
+                            $(dataList).each(function(i,val) {
+                                var newDate=new Date();
+                                newDate.setTime(val.crtDate);
+                                var crtDate=(newDate).Format("yyyy-MM-dd");
+								x.push(crtDate);
+								y.push(val.amount);
+                            });
+                            xy.x=x;
+                            xy.y=y;
+                        }
+                        else{
+                            alert("新增失败");
+
+
+                        }
+                    }
+                });
+                return xy;
+            }
 
         </script>
 	</body>
