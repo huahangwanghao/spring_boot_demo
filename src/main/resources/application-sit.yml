@@ -1,5 +1,5 @@
 server:
-  port: 80
+  port: 8888
   context-path: /
 
 name1: 测试环境
@@ -9,4 +9,15 @@ content1: "name:${name1},age:${age1}"
 
 student:
   name: 测试环境
-  age: 18
+  age: 18 
+spring:  
+  datasource:
+        driver-class-name: com.mysql.jdbc.Driver
+        username: root
+        password: wanghao
+        url: jdbc:mysql://59.110.215.202:3306/wanghao?useUnicode=true&characterEncoding=utf-8
+  jpa:
+        hibernate:
+          ddl-auto: update
+        show-sql: true
+ 

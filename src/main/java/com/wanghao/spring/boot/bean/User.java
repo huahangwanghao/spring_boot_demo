@@ -56,4 +56,14 @@ public class User {
     public void setCrtDate(Date crtDate) {
         this.crtDate = crtDate;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "oneId=" + oneId +
+                ", userName='" + userName + '\'' +
+                ", pwd='" + pwd + '\'' +
+                ", crtDate=" + crtDate +
+                '}';
+    }
 }
