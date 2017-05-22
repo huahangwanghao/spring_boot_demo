@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResultBean login(User user) {
-        if(("admin".equals(user.getPwd())&&user.getUserName().equals("admin"))) {
+        if(("admin1".equals(user.getPwd())&&user.getUserName().equals("admin"))) {
             return ResultUtils.success(0);
         }
         User user1=userDao.findByUserName(user.getUserName());
