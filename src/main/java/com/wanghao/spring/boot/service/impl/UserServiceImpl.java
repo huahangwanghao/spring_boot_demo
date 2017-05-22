@@ -105,5 +105,22 @@ public class UserServiceImpl implements UserService {
         return ResultUtils.success(list);
     }
 
+    @Override
+    public ResultBean getGoodsByMonth(String month) {
+
+        String sql="select t.sumCount ,ol.`name` from  one_level ol,(\n" +
+                "select o.one_level_id,sum(1) as sumCount from order_table o where  DATE_FORMAT(o.crt_date,'%Y-%m')=? GROUP BY o.one_level_id\n" +
+                ") t where ol.one_id=t.one_level_id";
+
+        Query query=entityManager.createNativeQuery(sql);
+
+        query.unwrap(SQLQuery.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+
+        List<Map<String,Object>> list=query.setParameter(1,month).getResultList();
+
+
+        return ResultUtils.success(list);
+    }
+
 
 }

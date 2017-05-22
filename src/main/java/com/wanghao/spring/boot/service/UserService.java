@@ -23,4 +23,6 @@ public interface UserService {
     ResultBean login(User user);
 
     ResultBean getMoneyByMonth(String month);
+
+    ResultBean getGoodsByMonth(String month);
 }

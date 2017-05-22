@@ -61,6 +61,11 @@ public class UserController {
         logger.info("-------------------->{}",month);
         return userServicel.getMoneyByMonth(month);
     }
+    @PostMapping(value = "/getGoodsByMonth")
+    public ResultBean getGoodsByMonth(@RequestParam("month")String month){
+        logger.info("-------------------->{}",month);
+        return userServicel.getGoodsByMonth(month);
+    }
 
 
     

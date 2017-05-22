@@ -188,9 +188,11 @@
                 var y=xy.y;
 
                 moneyLine(x,y);
-                var x1=['化妆品1', '化妆品2', '化妆品3', '化妆品4', '化5', '化6', '化妆品7','化妆品1', '化妆品2', '化妆品3', '化妆品4', '化5', '化6', '化妆品7','化妆品1', '化妆品2', '化妆品3', '化妆品4', '化5', '化6', '化妆品7'];
-                var y1=[10, 52, 200, 334, 390, 330, 220,10, 52, 200, 334, 390, 370, 224,10, 52, 200, 334, 390, 330, 220];
 
+
+                var xy1=getGood(month);
+                var x1= xy1.x;
+                var y1=xy1.y;
                 goodLine(x1,y1);
                
 
@@ -279,7 +281,7 @@
                     ],
                     series : [
                         {
-                            name:'直接访问',
+                            name:'购买数量',
                             type:'bar',
                             barWidth: '60%',
                             data:y
@@ -296,8 +298,12 @@
                 var y=xy.y;
 
                 moneyLine(x,y);
-                var x1=['化妆品1', '化妆品2', '化妆品3', '化妆品4', '化5', '化6', '化妆品7','化妆品1', '化妆品2', '化妆品3', '化妆品4', '化5', '化6', '化妆品7','化妆品1', '化妆品2', '化妆品3', '化妆品4', '化5', '化6', '化妆品7'];
+                /*var x1=['化妆品1', '化妆品2', '化妆品3', '化妆品4', '化5', '化6', '化妆品7','化妆品1', '化妆品2', '化妆品3', '化妆品4', '化5', '化6', '化妆品7','化妆品1', '化妆品2', '化妆品3', '化妆品4', '化5', '化6', '化妆品7'];
                 var y1=[10, 52, 200, 334, 390, 330, 220,10, 52, 200, 334, 390, 370, 224,10, 52, 200, 334, 390, 330, 220];
+*/
+                var xy1=getGood(date);
+                var x1= xy1.x;
+                var y1=xy1.y;
 
                 goodLine(x1,y1);
                 
@@ -327,9 +333,46 @@
                                /* var newDate=new Date();
                                 newDate.setTime(val.crtDate);
                                 var crtDate=(newDate).Format("yyyy-MM-dd");*/
-                               alert(val.crtDate);
 								x.push(val.crtDate);
 								y.push(val.amount);
+                            });
+                            xy.x=x;
+                            xy.y=y;
+                        }
+                        else{
+                            alert("新增失败");
+
+
+                        }
+                    }
+                });
+                return xy;
+            }
+
+
+            function getGood(month){
+
+                var xy=new Object();
+                var x=new Array();
+                var y=new Array();
+
+                $.ajax({
+                    cache: true,
+                    type: "POST",
+                    url:"/getGoodsByMonth.do",
+                    data:{month:month},
+                    async: false,
+                    error: function(request) {
+                        alert("Connection error");
+                    },
+                    success: function(data) {
+                        var content="";
+                        if(data.code==0){
+                            var dataList=data.data;
+                            $(dataList).each(function(i,val) {
+								
+                                x.push(val.name);
+                                y.push(val.sumCount);
                             });
                             xy.x=x;
                             xy.y=y;
