@@ -142,7 +142,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public ResultBean getOrderBySearch(PageInfo pageInfo) {
+    public ResultBean getOrderBySearch(final PageInfo pageInfo) {
 
         Sort.Order order=new Sort.Order(Sort.Direction.DESC,"orderId");
         Sort sort=new Sort(order);
