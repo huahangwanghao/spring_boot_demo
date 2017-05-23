@@ -142,11 +142,12 @@
 		<script type="text/javascript">
 
             $(function () {
-
+				var token=getCookie("admin");
                 $.ajax({
                     cache: true,
                     type: "GET",
                     url:"/getAllOneLevel",
+					data:{token:token},
                     async: false,
                     error: function(request) {
                         alert("Connection error");

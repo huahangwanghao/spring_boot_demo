@@ -18,6 +18,7 @@
      @PathVariable("a") String b
      logger.info(b)---->12
 12. 使用了yml中的对象的方式给配置文件赋值
+13. 连接到了redis
 
 
 

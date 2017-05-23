@@ -38,6 +38,8 @@ public class HttpAspectJ {
         logger.info("this is before");
         ServletRequestAttributes requestAttributes= (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request=requestAttributes.getRequest();
+        String token=request.getParameter("token");
+        logger.info("传递过来的token is--------------->"+token);
         //url
         StringBuffer url=request.getRequestURL();
         logger.info("   url={}",url);

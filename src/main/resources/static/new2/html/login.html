@@ -55,6 +55,7 @@
 		</div>
 	</body>
 	<script type="text/javascript" src="../assets/js/jquery-2.1.0.js" ></script>
+	<script type="text/javascript" src="../assets/js/common.js" ></script>
 	<script type="text/javascript">
 
         function loginIn(){
@@ -69,6 +70,8 @@
                 },
                 success: function(data) {
                     if(data.code==0){
+                        var token=data.data;
+                        setCookie("admin",token);
                         window.location.href='../index.html';
                     }
                     else{
