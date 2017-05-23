@@ -20,7 +20,7 @@
 		<!-- Begin page -->
 		<header class="am-topbar am-topbar-fixed-top">		
 			<div class="am-topbar-left am-hide-sm-only">
-                <a href="index.html" class="logo"><span>宁赛<span>美</span></span><i class="zmdi zmdi-layers"></i></a>
+                <a href="index.html" class="logo"><span>漂亮<span>美</span></span><i class="zmdi zmdi-layers"></i></a>
             </div>
 	
 			<div class="contain">
@@ -102,13 +102,13 @@
               共 <span id="totalCount">1</span> 条记录
               <div class="am-fr">
                 <ul class="am-pagination">
-                  <li><a onclick="preLine();" href="#">«</a></li>
+                  <li><a onclick="preLine();">«</a></li>
                   <li class="am-active"><a onclick="nowLine();" id="l1" href="#">1</a></li>
                   <li><a onclick="return nowLine(this.id);" id="l2" href="#">2</a></li>
                   <li><a onclick="nowLine();" id="l3" href="#">3</a></li>
                   <li><a onclick="nowLine();" id="l4" href="#">4</a></li>
                   <li><a onclick="nowLine();" id="l5" href="#">5</a></li>
-                  <li><a onclick="nowLine();" onclick="nextLine()" href="#">»</a></li>
+                  <li><a onclick="nextLine();" href="#">»</a></li>
                 </ul>
               </div>
             </div>
@@ -201,7 +201,7 @@
                             $("#myTable").html(content);
                         }
                         else{
-                            alert("查询失败");
+                            alert("查询失败1");
                         }
                     }
                 });
@@ -209,7 +209,10 @@
             
             
             function search(pageNo){
-                var pageSize=2;
+                if(isNaN(pageNo)){
+                    return;
+				}
+                    var pageSize=2;
                 var totalCount=1;
                 var  search=$("#search").val();
                 $.ajax({
@@ -259,7 +262,7 @@
                             $("#myTable").html(content);
                         }
                         else{
-                            alert("查询失败");
+                            alert("查询失败2");
                         }
                     }
                 });
@@ -271,6 +274,7 @@
                 if(1>=l1){
                     return ;
 				}else{
+                    alert("前一页");
                     var page1=parseFloat($("#l1").html())-5;
                     var page2=parseFloat($("#l2").html())-5;
                     var page3=parseFloat($("#l3").html())-5;
@@ -281,8 +285,7 @@
                     $("#l3").html(page3);
                     $("#l4").html(page4);
                     $("#l5").html(page5);
-                    alert(page1);
-                    search(page1);
+                    search(parseFloat(page1)-1);
 				}
 			}
 			
@@ -298,14 +301,15 @@
                 $("#l3").html(page3);
                 $("#l4").html(page4);
                 $("#l5").html(page5);
-                search(page1);
+                alert(parseFloat(page1)-1);
+                search(parseFloat(page1)-1);
 			}
 			
 			function nowLine(id){
                 $("li").click(function (e){
                     var onclick_val= $(e.target).attr("id");
                     var page1=$("#"+onclick_val).html();
-                    search(page1);
+                    search(parseFloat(page1)-1);
                 })
 			}
             
