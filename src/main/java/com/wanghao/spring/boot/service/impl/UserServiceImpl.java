@@ -11,8 +11,10 @@ import com.wanghao.spring.boot.dao.OneLevelDao;
 import com.wanghao.spring.boot.dao.OrderTableDao;
 import com.wanghao.spring.boot.dao.UserDao;
 import com.wanghao.spring.boot.enumtype.EnumType;
+import com.wanghao.spring.boot.service.RedisService;
 import com.wanghao.spring.boot.service.UserService;
 import com.wanghao.spring.boot.utils.ResultUtils;
+import com.wanghao.spring.boot.utils.UUIDTool;
 import org.hibernate.SQLQuery;
 import org.hibernate.transform.Transformers;
 import org.slf4j.Logger;
@@ -54,6 +56,9 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
     @Autowired
     private EntityManager entityManager;
+    
+    @Autowired
+    private RedisService redisService;
 
     @Override
     public ResultBean addOneLevel(OneLevel oneLevel) {
@@ -84,14 +89,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResultBean login(User user) {
+        String uuid= UUIDTool.getUUID();
         if(("admin1".equals(user.getPwd())&&user.getUserName().equals("admin"))) {
-            return ResultUtils.success(0);
+            redisService.set("admin",uuid,10000l);
+            return ResultUtils.success(uuid);
         }
         User user1=userDao.findByUserName(user.getUserName());
         if(user1!=null){
             String pwd=user1.getPwd();
             if(user.getPwd().equals(pwd)){
-                return ResultUtils.success(0);
+                redisService.set(user.getUserName(), uuid,10000l);
+                return ResultUtils.success(uuid);
             }else{
                 return ResultUtils.error(EnumType.USEPWDERROR);
             }

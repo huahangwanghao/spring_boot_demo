@@ -22,3 +22,12 @@ spring:
         ddl-auto: update
         show-sql: true
         format_sql: true
+  redis:
+      host: 59.110.215.202
+      password: 
+      port: 6379
+      pool:
+        max-idle: 100
+        min-idle: 1
+        max-active: 1000
+        max-wait: -1

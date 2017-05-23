@@ -1,8 +1,8 @@
 spring:
   profiles:
     active: sit
+
 logging:
   level: debug
-    
-
+ 
 
