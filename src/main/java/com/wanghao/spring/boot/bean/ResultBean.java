@@ -43,7 +43,7 @@ public class ResultBean<T> {
 
     @Override
     public String toString() {
-        return "ResultBean{" +
+        return "{" +
                 "code=" + code +
                 ", msg='" + msg + '\'' +
                 ", data=" + data +

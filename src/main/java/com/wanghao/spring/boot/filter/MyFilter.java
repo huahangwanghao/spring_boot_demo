@@ -21,6 +21,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 使用注解标注过滤器
@@ -46,6 +48,8 @@ public class MyFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
                          FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req= (HttpServletRequest)request;
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=utf-8");
         StringBuffer url=req.getRequestURL();
         String token=req.getHeader("token");
         logger.info("myFilter url is --------->"+url);
@@ -59,12 +63,21 @@ public class MyFilter implements Filter {
             ResultBean resultBean=new ResultBean();
             if(StringUtils.isEmpty(token)){
                 //如果没有上传token这个值
-                 resultBean=ResultUtils.error(EnumType.SUCCECC);    
+                 resultBean=ResultUtils.error(EnumType.SYSTEMERROR);
+                 logger.info("未通过过滤器,返回给前台数据:"+resultBean);
+                 Map<String,Object> result=new HashMap<String,Object>();
+                 result.put("code",resultBean.getCode());
+                 result.put("msg",resultBean.getMsg());
+                response.getWriter().write(resultBean.toString());
             }else{
                 Object obj=redisService.get(token);
                 if(ObjectUtils.isEmpty(obj)){
                     //如果在redis里面查询不到数据/返回错误
                     resultBean=ResultUtils.error(EnumType.SYSTEMERROR);
+                    logger.info("未通过过滤器,返回给前台数据:"+resultBean);
+                    Map<String,Object> result=new HashMap<String,Object>();
+                    result.put("code",resultBean.getCode());
+                    result.put("msg",resultBean.getMsg());
                     response.getWriter().write(resultBean.toString());
                 }else{
                     chain.doFilter(request, response);

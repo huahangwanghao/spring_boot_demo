@@ -64,6 +64,8 @@ public class UserServiceImpl implements UserService {
     public ResultBean addOneLevel(OneLevel oneLevel) {
         oneLevel.setCrtDate(new Date());
         oneLevelDao.save(oneLevel);
+        int i=1/0;
+        oneLevelDao.save(oneLevel);
         return ResultUtils.success("新增成功");
     }
 
