@@ -2,6 +2,9 @@ package com.wanghao.spring.boot.listener;/**
  * Created by Administrator on 2017/5/24.
  */
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
@@ -15,16 +18,17 @@ import javax.servlet.annotation.WebListener;
  */
 @WebListener
 public class MyServletContextListener implements ServletContextListener {
+    protected static Logger logger= LoggerFactory.getLogger(MyServletContextListener.class);
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        System.out.println("ServletContex初始化");
-        System.out.println(sce.getServletContext().getServerInfo());
+        logger.info("ServletContex初始化");
+        logger.info(sce.getServletContext().getServerInfo());
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        System.out.println("ServletContex销毁");
+        logger.info("ServletContex销毁");
     }
 
 }

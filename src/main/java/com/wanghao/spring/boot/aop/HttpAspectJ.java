@@ -13,8 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ObjectUtils;
-import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -45,15 +43,6 @@ public class HttpAspectJ {
         logger.info("this is before");
         ServletRequestAttributes requestAttributes= (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request=requestAttributes.getRequest();
-        String token=request.getParameter("token");
-        logger.info("传递过来的token is--------------->"+token);
-        if(!StringUtils.isEmpty(token)){
-            Object obj=redisService.get(token);
-            logger.info("from redis we can get value is ----->"+obj);
-            if(ObjectUtils.isEmpty(obj)){
-                return ;
-            }
-        }
         //url
         StringBuffer url=request.getRequestURL();
         logger.info("   url={}",url);

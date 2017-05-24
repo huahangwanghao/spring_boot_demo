@@ -240,6 +240,7 @@
                     type: "Post",
                     url:"/addOrder.do",
                     data:$('#orderForm').serialize(),// 你的formid
+                    headers : {"token":getCookie("admin")},
                     async: false,
                     error: function(request) {
                         alert("Connection error");
@@ -249,7 +250,7 @@
                             alert("新增成功");
                         }
                         else{
-                            alert("新增失败");
+                            alert(data.msg);
                         }
                     }
                 });

@@ -131,7 +131,7 @@
                     type: "GET",
                     url:"/addOneLevel.do",
                     data:$('#oneLevelForm').serialize(),// 你的formid
-                    headers : {"token":"123123"},
+                    headers : {"token":getCookie("admin")},
                     async: false,
                     error: function(request) {
                         alert("Connection error");

@@ -146,8 +146,9 @@
                 $.ajax({
                     cache: true,
                     type: "GET",
-                    url:"/getAllOneLevel",
+                    url:"/getAllOneLevel.do",
 					data:{token:token},
+                    headers : {"token":getCookie("admin")},
                     async: false,
                     error: function(request) {
                         alert("Connection error");

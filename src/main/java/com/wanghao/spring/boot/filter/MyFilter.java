@@ -48,12 +48,14 @@ public class MyFilter implements Filter {
         HttpServletRequest req= (HttpServletRequest)request;
         StringBuffer url=req.getRequestURL();
         String token=req.getHeader("token");
-        logger.info("url is --------->"+url);
+        logger.info("myFilter url is --------->"+url);
         if(isPass(url.toString())){
             //如果是登录接口,不用校验token的问题,直接放行
-            logger.info("执行过滤操作");
+           
             chain.doFilter(request, response);
         }else{
+            logger.info("执行过滤操作");
+            logger.info("myFilter token is --------->"+token);
             ResultBean resultBean=new ResultBean();
             if(StringUtils.isEmpty(token)){
                 //如果没有上传token这个值

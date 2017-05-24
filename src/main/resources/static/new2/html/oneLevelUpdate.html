@@ -141,6 +141,7 @@
                         "oneId":id,
 						"name":name
 					},// 你的formid
+                    headers : {"token":getCookie("admin")},
                     async: false,
                     error: function(request) {
                         alert("Connection error");
@@ -151,7 +152,7 @@
                             window.location.href='oneLevelTable.html';
 						}
 						else{
-                            alert("新增失败");
+                            alert(data.msg);
                             
                             
 						}

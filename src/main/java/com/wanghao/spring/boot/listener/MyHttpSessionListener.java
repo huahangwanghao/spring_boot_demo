@@ -2,6 +2,9 @@ package com.wanghao.spring.boot.listener;/**
  * Created by Administrator on 2017/5/24.
  */
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
@@ -15,15 +18,15 @@ import javax.servlet.http.HttpSessionListener;
  */
 @WebListener
 public class MyHttpSessionListener implements HttpSessionListener {
-
+    protected static Logger logger= LoggerFactory.getLogger(MyHttpSessionListener.class);
     @Override
     public void sessionCreated(HttpSessionEvent se) {
-        System.out.println("Session 被创建");
+        logger.info("Session 被创建");
     }
 
     @Override
     public void sessionDestroyed(HttpSessionEvent se) {
-        System.out.println("ServletContex初始化");
+        logger.info("ServletContex初始化");
     }
 
 }

@@ -154,12 +154,13 @@
                 $.ajax({
                     cache: true,
                     type: "GET",
-                    url:"/getOrderBySearch",
+                    url:"/getOrderBySearch.do",
 					data:{
                         pageNo:pageNo,
 						pageSize:pageSize,
 						search:search
 					},
+                    headers : {"token":getCookie("admin")},
                     async: false,
                     error: function(request) {
                         alert("Connection error");
@@ -218,12 +219,13 @@
                 $.ajax({
                     cache: true,
                     type: "GET",
-                    url:"/getOrderBySearch",
+                    url:"/getOrderBySearch.do",
                     data:{
                         pageNo:pageNo,
                         pageSize:pageSize,
                         search:search
                     },
+                    headers : {"token":getCookie("admin")},
                     async: false,
                     error: function(request) {
                         alert("Connection error");
@@ -262,7 +264,7 @@
                             $("#myTable").html(content);
                         }
                         else{
-                            alert("查询失败2");
+                            alert(data.msg);
                         }
                     }
                 });

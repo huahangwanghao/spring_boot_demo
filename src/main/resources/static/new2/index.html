@@ -176,28 +176,18 @@
 		<script type="text/javascript" src="assets/js/charts/indexChart.js" ></script>
 		<script type="text/javascript" src="assets/js/common.js" ></script>
         <script type="text/javascript">
-
-
             $(function () {
-
-
-
-
                 var newDate=new Date();
                 var month=(newDate).Format("yyyy-MM");
                 var xy=getMoney(month);
                 var x= xy.x;
                 var y=xy.y;
-
                 moneyLine(x,y);
-
-
+//----------------------------------------------------------
                 var xy1=getGood(month);
                 var x1= xy1.x;
                 var y1=xy1.y;
                 goodLine(x1,y1);
-               
-
             });
 
 
@@ -317,12 +307,13 @@
                 var xy=new Object();
                 var x=new Array();
                 var y=new Array();
-               
+               alert(getCookie("admin"));
                 $.ajax({
                     cache: true,
                     type: "POST",
                     url:"/getMoneyByMonth.do",
 					data:{month:month},
+                    headers : {"token":getCookie("admin")},
                     async: false,
                     error: function(request) {
                         alert("Connection error");
@@ -332,9 +323,6 @@
                         if(data.code==0){
                             var dataList=data.data;
                             $(dataList).each(function(i,val) {
-                               /* var newDate=new Date();
-                                newDate.setTime(val.crtDate);
-                                var crtDate=(newDate).Format("yyyy-MM-dd");*/
 								x.push(val.crtDate);
 								y.push(val.amount);
                             });
@@ -342,7 +330,7 @@
                             xy.y=y;
                         }
                         else{
-                            alert("新增失败");
+                            alert(data.msg);
 
 
                         }
@@ -363,6 +351,7 @@
                     type: "POST",
                     url:"/getGoodsByMonth.do",
                     data:{month:month},
+                    headers : {"token":getCookie("admin")},
                     async: false,
                     error: function(request) {
                         alert("Connection error");
@@ -380,9 +369,7 @@
                             xy.y=y;
                         }
                         else{
-                            alert("新增失败");
-
-
+                            alert(data.msg);
                         }
                     }
                 });
