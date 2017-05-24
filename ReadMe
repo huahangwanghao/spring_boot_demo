@@ -19,6 +19,7 @@
      logger.info(b)---->12
 12. 使用了yml中的对象的方式给配置文件赋值
 13. 连接到了redis
+14. 增加了filter和listener的功能
 
 
 

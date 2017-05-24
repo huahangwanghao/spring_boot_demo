@@ -91,14 +91,14 @@ public class UserServiceImpl implements UserService {
     public ResultBean login(User user) {
         String uuid= UUIDTool.getUUID();
         if(("admin1".equals(user.getPwd())&&user.getUserName().equals("admin"))) {
-            redisService.set("admin",uuid,10000l);
+            redisService.set(uuid,0,100l);
             return ResultUtils.success(uuid);
         }
         User user1=userDao.findByUserName(user.getUserName());
         if(user1!=null){
             String pwd=user1.getPwd();
             if(user.getPwd().equals(pwd)){
-                redisService.set(user.getUserName(), uuid,10000l);
+                redisService.set(uuid,0,100l);
                 return ResultUtils.success(uuid);
             }else{
                 return ResultUtils.error(EnumType.USEPWDERROR);

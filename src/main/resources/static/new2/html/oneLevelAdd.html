@@ -91,7 +91,6 @@
 								      <label for="doc-vld-name-2">商品名称：</label>
 								      <input name="name" type="text" id="doc-vld-name-2" minlength="3" placeholder="输入用户名（至少 3 个字符）" required/>
 								    </div>
-								
 								    <button class="am-btn am-btn-secondary" type="button" onclick="addOneLevel();">提交</button>
 								  </fieldset>
 								</form>
@@ -126,12 +125,13 @@
                // $("#oneLevelForm").submit();
 
 
-
+				var token=1231;
                 $.ajax({
                     cache: true,
                     type: "GET",
                     url:"/addOneLevel.do",
                     data:$('#oneLevelForm').serialize(),// 你的formid
+                    headers : {"token":"123123"},
                     async: false,
                     error: function(request) {
                         alert("Connection error");

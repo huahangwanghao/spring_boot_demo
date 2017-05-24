@@ -2,6 +2,7 @@ package com.wanghao.spring.boot.aop;/**
  * Created by Administrator on 2017/4/26.
  */
 
+import com.wanghao.spring.boot.service.RedisService;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -10,7 +11,10 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -28,6 +32,9 @@ public class HttpAspectJ {
     
     protected  static Logger logger= LoggerFactory.getLogger(HttpAspectJ.class);
     
+    @Autowired
+    private RedisService redisService;
+    
     @Pointcut("execution(public * com.wanghao.spring.boot.controller..*(..))")
     public void log(){}
     @Pointcut("execution(public * com.wanghao.spring.boot.service..*(..))")
@@ -40,6 +47,13 @@ public class HttpAspectJ {
         HttpServletRequest request=requestAttributes.getRequest();
         String token=request.getParameter("token");
         logger.info("传递过来的token is--------------->"+token);
+        if(!StringUtils.isEmpty(token)){
+            Object obj=redisService.get(token);
+            logger.info("from redis we can get value is ----->"+obj);
+            if(ObjectUtils.isEmpty(obj)){
+                return ;
+            }
+        }
         //url
         StringBuffer url=request.getRequestURL();
         logger.info("   url={}",url);
