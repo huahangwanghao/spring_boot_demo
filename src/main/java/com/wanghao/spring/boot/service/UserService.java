@@ -36,6 +36,6 @@ public interface UserService {
     
     
     ResultBean updateGoods();
-    
-    
+
+     ResultBean updateGoods1();
 }

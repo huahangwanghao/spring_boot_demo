@@ -29,6 +29,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -67,6 +69,8 @@ public class UserServiceImpl implements UserService {
     
     @Autowired
     private RedisService redisService;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @Override
     public ResultBean addOneLevel(OneLevel oneLevel) {
@@ -205,6 +209,53 @@ public class UserServiceImpl implements UserService {
             goodLogDao.save(goodLog);
         }else{
             return ResultUtils.error(EnumType.FAIL);
+        }
+        
+        return ResultUtils.success(0);
+    }
+    @Override
+    public ResultBean updateGoods1() {
+
+        redisTemplate.delete("key");
+        Object obj=redisTemplate.opsForValue().get("key");
+        if(obj!=null){
+
+           long count= redisTemplate.opsForValue().increment("key",1l);
+           logger.info("count is "+count);
+           if(count>5){
+               return ResultUtils.error(EnumType.FAIL);
+           }
+            
+        }else{
+
+
+
+            RedisConnection redis=redisTemplate.getConnectionFactory().getConnection();
+
+
+            redis.watch("key".getBytes());
+            
+            redis.multi();
+            
+            redis.incr("key".getBytes());
+            
+            List<Object> list=redis.exec();
+            if(null==list){
+                //被改过,同样可以理解为,并发一起操作的
+                GoodLog goodLog=new GoodLog();
+                goodLog.setCrtDate(new Date());
+                goodLogDao.save(goodLog);
+                long count=redis.incr("key".getBytes());
+                logger.info("--------------------被修改过"+count);
+                if(count>5){
+                  
+                    return ResultUtils.error(EnumType.FAIL);
+                }
+            }else{
+                //正常
+                logger.info("----------------正常");
+            }
+            
         }
         
         return ResultUtils.success(0);
