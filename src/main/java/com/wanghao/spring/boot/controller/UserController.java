@@ -72,6 +72,10 @@ public class UserController {
         logger.info("-------------------->{}");
         return userServicel.getOrderBySearch(pageInfo);
     }
-
+    @GetMapping(value = "/updateVerson")
+    public ResultBean updateVerson(){
+        logger.info("-------------------->{}");
+        return userServicel.updateGoods();
+    }
     
 }

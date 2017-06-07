@@ -20,6 +20,7 @@
 12. 使用了yml中的对象的方式给配置文件赋值
 13. 连接到了redis
 14. 增加了filter和listener的功能
+15. 增加数据库的乐观锁的问题,解决并发抢购手机的问题. 详情查看UserServiceImpl类中的updateGoods这个方法
 
 
 

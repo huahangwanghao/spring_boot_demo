@@ -2,11 +2,15 @@ package com.wanghao.spring.boot.service.impl;/**
  * Created by Administrator on 2017/5/19.
  */
 
+import com.wanghao.spring.boot.bean.Good;
+import com.wanghao.spring.boot.bean.GoodLog;
 import com.wanghao.spring.boot.bean.OneLevel;
 import com.wanghao.spring.boot.bean.OrderTable;
 import com.wanghao.spring.boot.bean.PageInfo;
 import com.wanghao.spring.boot.bean.ResultBean;
 import com.wanghao.spring.boot.bean.User;
+import com.wanghao.spring.boot.dao.GoodDao;
+import com.wanghao.spring.boot.dao.GoodLogDao;
 import com.wanghao.spring.boot.dao.OneLevelDao;
 import com.wanghao.spring.boot.dao.OrderTableDao;
 import com.wanghao.spring.boot.dao.UserDao;
@@ -56,6 +60,10 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
     @Autowired
     private EntityManager entityManager;
+    @Autowired
+    private GoodDao goodDao;
+    @Autowired
+    private GoodLogDao goodLogDao;
     
     @Autowired
     private RedisService redisService;
@@ -178,6 +186,28 @@ public class UserServiceImpl implements UserService {
         };
         Page<OrderTable> page=orderTableDao.findAll(specification,pageable);
         return ResultUtils.success(page);
+    }
+
+    @Override
+    public ResultBean updateGoods() {
+
+        Good good=goodDao.findOne(1);
+        int amount=good.getGoodAmount();
+        amount--;
+        if(amount<=0){
+            return ResultUtils.error(EnumType.EMPTY);
+        }
+        int version=good.getVersion();
+        int count=goodDao.updateByVersion(amount,version+1,version);
+        if(count==1){
+            GoodLog goodLog=new GoodLog();
+            goodLog.setCrtDate(new Date());
+            goodLogDao.save(goodLog);
+        }else{
+            return ResultUtils.error(EnumType.FAIL);
+        }
+        
+        return ResultUtils.success(0);
     }
 
 

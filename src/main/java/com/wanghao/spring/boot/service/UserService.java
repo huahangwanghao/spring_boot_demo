@@ -33,4 +33,9 @@ public interface UserService {
      * @return
      */
     ResultBean getOrderBySearch(PageInfo pageInfo);
+    
+    
+    ResultBean updateGoods();
+    
+    
 }

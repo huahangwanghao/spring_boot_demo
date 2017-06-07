@@ -12,6 +12,8 @@ public enum EnumType {
     AGEERROR(1,"年纪问题"),
     NOPERSON(2,"查无此人"),
     USEPWDERROR(3,"用户名/密码错误"),
+    EMPTY(4,"商品已经卖完"),
+    FAIL(5,"抢购失败"),
     ;
 
     private Integer code;
