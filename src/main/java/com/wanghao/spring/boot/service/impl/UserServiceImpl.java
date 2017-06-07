@@ -194,7 +194,7 @@ public class UserServiceImpl implements UserService {
         Good good=goodDao.findOne(1);
         int amount=good.getGoodAmount();
         amount--;
-        if(amount<=0){
+        if(amount<0){
             return ResultUtils.error(EnumType.EMPTY);
         }
         int version=good.getVersion();
