@@ -13,7 +13,7 @@ public enum EnumType {
     NOPERSON(2,"查无此人"),
     USEPWDERROR(3,"用户名/密码错误"),
     EMPTY(4,"商品已经卖完"),
-    FAIL(5,"抢购失败"),
+    FAIL(5,"哇哦~~,抢购人太多啦,人家忙不过来.要不你再抢次么么哒~~~"),
     ;
 
     private Integer code;
