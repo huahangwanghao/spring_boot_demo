@@ -17,7 +17,7 @@
 		<!-- Begin page -->
 		<header class="am-topbar am-topbar-fixed-top">
 			<div class="am-topbar-left am-hide-sm-only">
-                <a href="index.html" class="logo"><span>漂亮美<span></span></span><i class="zmdi zmdi-layers"></i></a>
+                <a href="index.html" class="logo"><span id="n2">漂亮美<span></span></span><i class="zmdi zmdi-layers"></i></a>
             </div>
 
 			<div class="contain">
@@ -121,6 +121,16 @@
 		<script type="text/javascript" src="../assets/js/common.js" ></script>
         <script type="text/javascript">
             $(function () {
+
+                function longPolling2(){
+                    $.get('/async/test', function(data){
+                        console.log(data);
+                        $('#n2').html(data);
+                        longPolling2();
+                    });
+                }
+                longPolling2();
+                
                 var newDate=new Date();
                 var month=(newDate).Format("yyyy-MM");
                 var xy=getMoney(month);
